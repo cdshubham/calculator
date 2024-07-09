@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Calci</title>
+    <style>
+      html,
+      body {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        padding: 0;
+        transition: all 0.5s;
+      }
+
+      .button {
+        width: 70px;
+        height: 70px;
+        padding: 5px;
+        margin: 0 4px;
+        border: none;
+        background-color: #5d5d5d;
+        color: white;
+        font-weight: bolder;
+        font-size: 30px;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.5s;
+      }
+
+      .button:hover {
+        background-color: #3e3c3c;
+      }
+
+      .top-btn {
+        width: 70px;
+        height: 70px;
+        padding: 5px;
+        margin: 0 4px;
+        border: none;
+        background-color: #9a9a9a;
+        color: black;
+        font-weight: bolder;
+        font-size: 30px;
+        border-radius: 50px;
+        cursor: pointer;
+        background-color: yellowgreen;
+      }
+
+      .top-btn:hover {
+        background-color: #575353;
+      }
+
+      .right-btn {
+        width: 70px;
+        height: 70px;
+        padding: 5px;
+        margin: 0 4px;
+        border: none;
+        background-color: #ee9406;
+        color: white;
+        font-weight: bolder;
+        font-size: 30px;
+        border-radius: 50px;
+        cursor: pointer;
+      }
+      .right-btn:hover {
+        background-color: #bb7a11;
+      }
+      ::placeholder {
+        color: white;
+      }
+
+      .row {
+        margin: 8px 0;
+      }
+      .row input {
+        width: 316px;
+        font-size: 200%;
+        font-weight: bolder;
+        color: #000;
+        background-color: rgb(255, 255, 255);
+        border-radius: 15px;
+        margin: 0;
+        padding: 10px 10px;
+        border: none;
+        text-align: right;
+      }
+      h1 {
+        color: rgb(0, 0, 0);
+        font-weight: bolder;
+      }
+
+      .container {
+        background-color: rgb(0, 0, 0);
+        padding: 15px;
+        position: absolute;
+        border: solid rgb(25, 24, 24);
+        border-radius: 20px;
+        margin: 50px 450px;
+        box-shadow: 6px 6px 2px #636161;
+      }
+      .text-center {
+        color: white;
+      }
+    </style>
+  </head>
+
+  <body onkeydown="myFunction(event)">
+    <div class="container calc flex flex-col items-center">
+      <h1 class="text-center">Calculator</h1>
+      <div class="row">
+        <input class="input" type="text" placeholder="0" readonly />
+      </div>
+      <div class="row">
+        <button class="button top-btn" onclick="clear()">AC</button>
+        <button class="button top-btn" onclick="backspace()">⬅</button>
+        <button class="button top-btn" onclick="display(  '%')">%</button>
+        <button class="button right-btn" onclick="display(  '/')">÷</button>
+      </div>
+      <div class="row">
+        <button class="button" onclick="display(  '7')">7</button>
+        <button class="button" onclick="display(  '8')">8</button>
+        <button class="button" onclick="display(  '9')">9</button>
+        <button class="button right-btn" onclick="display(  '*')">X</button>
+      </div>
+      <div class="row">
+        <button class="button" onclick="display(  '4')">4</button>
+        <button class="button" onclick="display(  '5')">5</button>
+        <button class="button" onclick="display(  '6')">6</button>
+        <button class="button right-btn" onclick="display(  '-')">-</button>
+      </div>
+      <div class="row">
+        <button class="button" onclick="display(  '1')">1</button>
+        <button class="button" onclick="display(  '2')">2</button>
+        <button class="button" onclick="display(  '3')">3</button>
+        <button class="button right-btn" onclick="display(  '+')">+</button>
+      </div>
+      <div class="row">
+        <button class="button" onclick="display(  '0')">0</button>
+        <button class="button" onclick="display(  '00')">00</button>
+        <button class="button" onclick="display(  '.')">.</button>
+        <button class="button right-btn" onclick="solve()">=</button>
+      </div>
+    </div>
+    <script>
+      function myFunction(event) {
+        if (
+          event.key == "0" ||
+          event.key == "1" ||
+          event.key == "2" ||
+          event.key == "3" ||
+          event.key == "4" ||
+          event.key == "5" ||
+          event.key == "6" ||
+          event.key == "7" ||
+          event.key == "8" ||
+          event.key == "9" ||
+          event.key == "+" ||
+          event.key == "-" ||
+          event.key == "*" ||
+          event.key == "/" ||
+          event.key == "%" ||
+          event.key == "."
+        ) {
+          document.querySelector("input").value += event.key;
+        } else if (event.key == "Backspace" || event.key == "Delete") {
+          backspace();
+        } else if (event.key == "Enter") {
+          solve();
+        } else if (event.key == "c") {
+          clear();
+        } else if (event.key == "d") {
+          dark();
+        }
+      }
+
+      function solve() {
+        let x = document.querySelector("input").value;
+
+        let y = eval(x);
+
+        if (y === undefined) {
+          y = "Invalid Expression";
+        }
+        document.querySelector("input").value = y;
+      }
+
+      function clear() {
+        document.querySelector("input").value = "";
+      }
+
+      function backspace() {
+        let x = document.querySelector("input").value;
+        let y = x.slice(0, -1);
+        document.querySelector("input").value = y;
+      }
+
+      function display(val) {
+        document.querySelector("input").value += val;
+      }
+    </script>
+  </body>
+</html>
